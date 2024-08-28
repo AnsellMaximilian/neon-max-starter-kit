@@ -1,0 +1,296 @@
+/* RESET */
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* General Container for all Blog Pages */
+.blog-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Styling for Blog List and Create/Edit Pages */
+.blog-header,
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.form-header h1,
+.blog-header h1 {
+  font-size: 2em;
+  margin: 0;
+}
+
+/* Button Styling for Create, Edit, Delete, and Navigation Buttons */
+.create-button,
+.submit-button,
+.blog-actions button,
+.blog-actions a {
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  font-size: 1em;
+  text-decoration: none;
+}
+
+.create-button:hover,
+.submit-button:hover,
+.blog-actions button:hover {
+  background-color: #005bb5;
+}
+
+/* Blog List Styling */
+.blog-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.blog-item {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.blog-item h2 {
+  margin: 0 0 10px;
+  font-size: 1.5em;
+  color: #333;
+}
+
+.blog-item p {
+  color: #666;
+  margin: 0 0 15px;
+}
+
+/* Blog Actions Styling (View, Edit, Delete Buttons) */
+.blog-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.blog-actions a {
+  background-color: #0070f3;
+  color: white;
+  padding: 12px 10px;
+  border-radius: 5px;
+  font-size: 0.9em;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.blog-actions a:hover {
+  background-color: #005bb5;
+}
+
+/* Form Styling for Create and Edit Pages */
+.blog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 1em;
+  color: #333;
+}
+
+.input-field,
+.textarea-field {
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: border-color 0.3s;
+}
+
+.input-field:focus,
+.textarea-field:focus {
+  border-color: #0070f3;
+  outline: none;
+}
+
+/* Specific Page Elements Styling */
+.view-blog-title {
+  font-size: 2em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.view-blog-content {
+  font-size: 1.1em;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* Responsive Styling */
+@media (max-width: 600px) {
+  .blog-container {
+    padding: 15px;
+  }
+
+  .blog-header,
+  .form-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .create-button,
+  .submit-button,
+  .blog-actions button {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .blog-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .blog-actions a,
+  .blog-actions button {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+}
