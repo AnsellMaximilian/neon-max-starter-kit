@@ -1,24 +1,34 @@
-import { signOut } from "@/auth";
+import { auth, signOut } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { authenticated } from "@/lib/auth";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function Home() {
-  const user = await authenticated();
+  const session = await auth();
+  const user = session?.user;
 
   return (
     <main className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-6">
+      <div className="flex justify-center mb-8">
+        <Image
+          src="/images/neon-max-logo-full.svg"
+          alt="Neon Logo"
+          width={220}
+          height={150}
+          priority
+        />
+      </div>
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">
           Neon Max Next.js OSS Starter Kit
         </h1>
         <p className="text-lg text-gray-600 mb-6">
-          A robust, open-source starter kit built with Next.js, powered by Neon
-          Max, and designed for modern web applications.
+          A robust, open-source starter kit built with Next.js, powered by Neon,
+          and designed for modern web applications.
         </p>
 
         {user ? (
-          // If user is authenticated, display welcome message and logout button
           <div className="flex flex-col items-center space-y-4">
             <p className="text-lg font-medium text-gray-800">
               Welcome, {user.name || "User"}!
@@ -33,26 +43,15 @@ export default async function Home() {
             </form>
           </div>
         ) : (
-          // If user is not authenticated, display register and login buttons
           <div className="flex space-x-4 justify-center">
             <Button asChild variant="outline">
-              <a href="/register">Register</a>
+              <a href="/auth/register">Register</a>
             </Button>
             <Button asChild>
-              <a href="/login">Login</a>
+              <a href="/auth/login">Login</a>
             </Button>
           </div>
         )}
-      </div>
-
-      <div className="flex justify-center mb-8">
-        <Image
-          src="/images/neon-logo.svg"
-          alt="Neon Logo"
-          width={150}
-          height={150}
-          priority
-        />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full text-center">
@@ -67,11 +66,18 @@ export default async function Home() {
         </div>
         <div className="bg-white shadow-md rounded-lg p-6">
           <h2 className="text-2xl font-semibold text-gray-800 mb-2">
-            Powered by Neon Max
+            Powered by Neon
           </h2>
           <p className="text-gray-600">
-            Leverage the power of Neon Max's advanced features and capabilities
-            to build fast, scalable, and secure applications.
+            Leverage the power of{" "}
+            <Link
+              href="https://neon.tech/"
+              className="text-green-400 font-bold"
+            >
+              Neon
+            </Link>
+            &apos;s serverless Postgres database and its advanced features and
+            capabilities to build fast, scalable, and secure applications.
           </p>
         </div>
         <div className="bg-white shadow-md rounded-lg p-6">
