@@ -1,13 +1,18 @@
 import { loginUser } from "@/actions/auth";
+import { unAuthenticated } from "@/lib/auth";
 import { cookies } from "next/headers";
 
-export default function LoginPage() {
+export default async function LoginPage() {
   const errCookie = cookies().get("errors");
   let errMessages: string[] = [];
 
   try {
     errMessages = errCookie?.value ? JSON.parse(errCookie.value) : [];
   } catch (error) {}
+
+  // if user is already authenticated, redirect to home page
+  await unAuthenticated();
+
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <ul className="flex flex-col gap-2 mb-4">
