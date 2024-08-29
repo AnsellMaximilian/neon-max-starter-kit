@@ -1,4 +1,5 @@
 import { getBlogById, updateBlog } from "@/actions/blog";
+import { Button } from "@/components/ui/button";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
 
@@ -29,13 +30,16 @@ export default async function EditBlogPage({ params }: EditBlogPageProps) {
   }
 
   return (
-    <main className="blog-container">
-      <div className="form-header">
-        <h1>Edit Blog Post</h1>
+    <main className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg">
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold text-gray-900">Edit Blog Post</h1>
       </div>
-      <form action={handleUpdate} className="blog-form">
+      <form action={handleUpdate} className="space-y-6">
         <div className="form-group">
-          <label htmlFor="title" className="label">
+          <label
+            htmlFor="title"
+            className="block text-sm font-medium text-gray-700"
+          >
             Title
           </label>
           <input
@@ -44,11 +48,14 @@ export default async function EditBlogPage({ params }: EditBlogPageProps) {
             name="title"
             defaultValue={blog.title}
             required
-            className="input-field"
+            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
         <div className="form-group">
-          <label htmlFor="content" className="label">
+          <label
+            htmlFor="content"
+            className="block text-sm font-medium text-gray-700"
+          >
             Content
           </label>
           <textarea
@@ -57,12 +64,12 @@ export default async function EditBlogPage({ params }: EditBlogPageProps) {
             rows={10}
             defaultValue={blog.content}
             required
-            className="textarea-field"
+            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
-        <button type="submit" className="submit-button">
+        <Button type="submit" className="w-full">
           Update
-        </button>
+        </Button>
       </form>
     </main>
   );
