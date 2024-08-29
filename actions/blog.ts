@@ -1,5 +1,6 @@
 "use server";
 
+import { auth } from "@/auth";
 import { neon } from "@neondatabase/serverless";
 import { Blog, PrismaClient } from "@prisma/client";
 
@@ -9,14 +10,17 @@ const prisma = new PrismaClient();
 // Create a new blog
 export async function createBlog(
   title: string,
-  content: string,
-  authorId: number
+  content: string
 ): Promise<Blog> {
+  const session = await auth();
+
+  if (!session?.user) throw new Error("Unauthorized");
+
   const newBlog = await prisma.blog.create({
     data: {
       title,
       content,
-      author: { connect: { id: authorId } },
+      author: { connect: { id: session.user.id! } },
     },
   });
   return newBlog;
@@ -52,6 +56,17 @@ export async function updateBlog(
   title: string,
   content: string
 ): Promise<Blog> {
+  const session = await auth();
+
+  if (!session?.user) throw new Error("Unauthorized");
+
+  const oldPost = await getBlogById(id);
+
+  if (!oldPost) {
+    throw new Error("Post not found");
+  } else if (oldPost.authorId !== session.user.id)
+    throw new Error("Unauthorized");
+
   const updatedPost = await prisma.blog.update({
     where: { id },
     data: {
@@ -64,6 +79,17 @@ export async function updateBlog(
 
 // Delete a blog by ID
 export async function deleteBlog(id: number): Promise<void> {
+  const session = await auth();
+
+  if (!session?.user) throw new Error("Unauthorized");
+
+  const post = await getBlogById(id);
+
+  if (!post) {
+    throw new Error("Post not found");
+  } else if (post.authorId !== session.user.id) throw new Error("Unauthorized");
+
+  if (!session?.user) throw new Error("Unauthorized");
   await prisma.blog.delete({
     where: { id },
   });

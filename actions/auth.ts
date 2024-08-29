@@ -35,7 +35,7 @@ export async function registerUser(formData: FormData) {
 
 // Server action to handle login
 export async function loginUser(formData: FormData) {
-  let error = false;
+  let hasError = false;
   try {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
@@ -50,10 +50,10 @@ export async function loginUser(formData: FormData) {
       redirect: false,
     });
   } catch (error) {
-    error = true;
+    hasError = true;
   } finally {
     // redirects need to be called inside a finally block; otherwise it will throw a NEXT_REDIRECT error
-    if (error) redirect("/auth/login");
+    if (hasError) redirect("/auth/login");
     else redirect("/");
   }
 }

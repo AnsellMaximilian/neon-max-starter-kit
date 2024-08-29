@@ -1,8 +1,25 @@
 import { loginUser } from "@/actions/auth";
+import { cookies } from "next/headers";
 
 export default function LoginPage() {
+  const errCookie = cookies().get("errors");
+  let errMessages: string[] = [];
+
+  try {
+    errMessages = errCookie?.value ? JSON.parse(errCookie.value) : [];
+  } catch (error) {}
   return (
-    <main className="flex items-center justify-center min-h-screen bg-gray-100">
+    <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <ul className="flex flex-col gap-2 mb-4">
+        {errMessages.map((msg, index) => (
+          <li
+            key={index}
+            className="bg-red-100 border border-red-600 p-2 rounded-md"
+          >
+            {msg}
+          </li>
+        ))}
+      </ul>
       <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
         <h1 className="mb-6 text-2xl font-bold text-center">Login</h1>
         <form action={loginUser} className="space-y-4">
