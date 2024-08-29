@@ -1,6 +1,7 @@
 import { registerUser } from "@/actions/auth";
 import { unAuthenticated } from "@/lib/auth";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export default async function RegisterPage() {
@@ -70,6 +71,13 @@ export default async function RegisterPage() {
             Register
           </button>
         </form>
+        <div className="text-center mt-4 text-sm">
+          Already have an account? Login{" "}
+          <Link className="text-green-400" href="/auth/login">
+            here
+          </Link>
+          .
+        </div>
       </div>
     </main>
   );

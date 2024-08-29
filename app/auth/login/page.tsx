@@ -2,6 +2,7 @@ import { loginUser } from "@/actions/auth";
 import { unAuthenticated } from "@/lib/auth";
 import { cookies } from "next/headers";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function LoginPage() {
   const errCookie = cookies().get("errors");
@@ -68,6 +69,13 @@ export default async function LoginPage() {
             Login
           </button>
         </form>
+        <div className="text-center mt-4 text-sm">
+          Don&apos;t have an account? Register{" "}
+          <Link className="text-green-400" href="/auth/register">
+            here
+          </Link>
+          .
+        </div>
       </div>
     </main>
   );
