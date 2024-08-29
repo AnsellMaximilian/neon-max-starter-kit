@@ -1,10 +1,10 @@
-import NextAuth from "next-auth";
+import NextAuth, { User } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
-import { neon } from "@neondatabase/serverless";
 import bcrypt from "bcryptjs";
+import { PrismaClient } from "@prisma/client";
 
-const sql = neon(process.env.DATABASE_URL!);
+const prisma = new PrismaClient();
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -16,12 +16,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: {},
       },
       authorize: async (credentials) => {
-        let user = null;
+        if (!credentials?.email || !credentials.password) {
+          return null;
+        }
 
-        const result =
-          await sql`SELECT * FROM users WHERE email = ${credentials.email}`;
-
-        user = result[0];
+        const user = await prisma.user.findUnique({
+          where: { email: credentials.email as string },
+        });
 
         if (!user) {
           // No user found, so this is their first attempt to login
@@ -29,14 +30,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           throw new Error("User not found.");
         }
 
-        if (
-          user &&
-          bcrypt.compareSync(credentials.password as string, user.password)
-        ) {
-          throw new Error("Incorrect credentials");
+        const isPasswordValid = await bcrypt.compare(
+          credentials.password as string,
+          user.password
+        );
+        if (!isPasswordValid) {
+          throw new Error("Incorrect password");
         }
 
-        // return user object with their profile data
+        // return usr object with their profile data
         return user;
       },
     }),
