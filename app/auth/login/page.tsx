@@ -29,14 +29,16 @@ export default async function LoginPage() {
       </ul>
       <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
         <div className="flex justify-center mb-8">
-          <Image
-            src="/images/neon-max-logo-full.svg"
-            alt="Neon Logo"
-            width={220}
-            height={150}
-            className="w-44"
-            priority
-          />
+          <Link href="/">
+            <Image
+              src="/images/neon-max-logo-full.svg"
+              alt="Neon Logo"
+              width={220}
+              height={150}
+              className="w-44"
+              priority
+            />
+          </Link>
         </div>
         <h1 className="mb-6 text-2xl font-bold text-center">Login</h1>
         <form action={loginUser} className="space-y-4">
