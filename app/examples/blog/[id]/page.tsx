@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { Pencil } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import Comments from "../Comments";
 
 type BlogPageProps = {
   params: {
@@ -34,6 +35,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
           Back to Blog List
         </Link>
       </div>
+      <Comments blogId={blog.id} />
     </main>
   );
 }

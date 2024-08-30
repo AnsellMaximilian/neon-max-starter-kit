@@ -24,6 +24,7 @@ model User {
   password      String
   image         String?
   posts         Blog[]
+  comments      Comment[]
   createdAt   DateTime @default(now()) @map("created_at")
 }
 
@@ -37,4 +38,21 @@ model Blog {
   updatedAt   DateTime @updatedAt
   authorId    String   @map("author_id")
   author      User     @relation(fields: [authorId], references: [id])
+  comments    Comment[]
+}
+
+model Comment {
+  @@map("comments")
+
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())  @map("created_at")
+  updatedAt DateTime @updatedAt       @map("updated_at")
+
+  blogId    Int @map("blog_id")
+  authorId  String  @map("author_id")
+
+  content   String
+  author    User  @relation(fields: [authorId], references: [id])
+  blog      Blog  @relation(fields: [blogId], references: [id])
+
 }
