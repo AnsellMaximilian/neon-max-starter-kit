@@ -1,14 +1,13 @@
 import { loginUser } from "@/actions/auth";
 import ErrorMessage from "@/components/ui/error-message";
-import { unAuthenticated } from "@/lib/auth";
+import { Auth } from "@/lib/auth";
 import { Errors } from "@/lib/errors";
-import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
 export default async function LoginPage() {
   // if user is already authenticated, redirect to home page
-  await unAuthenticated();
+  await Auth.guest();
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100">

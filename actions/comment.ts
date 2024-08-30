@@ -1,5 +1,5 @@
 "use server";
-import { authenticated } from "@/lib/auth";
+import { Auth } from "@/lib/auth";
 import { PrismaClient } from "@prisma/client";
 import { getBlogById } from "./blog";
 import { commentSchema } from "@/lib/zod";
@@ -17,7 +17,7 @@ export async function createComment(
   prevState: CreateCommentState,
   formData: FormData
 ): Promise<CreateCommentState> {
-  const user = await authenticated();
+  const user = await Auth.authenticated();
 
   const blogId = Number(formData.get("blogId"));
   const content = formData.get("content") as string;

@@ -1,6 +1,6 @@
 "use server";
 
-import { authenticated } from "@/lib/auth";
+import { Auth } from "@/lib/auth";
 import { Blog, PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -10,7 +10,7 @@ export async function createBlog(
   title: string,
   content: string
 ): Promise<Blog> {
-  const user = await authenticated();
+  const user = await Auth.authenticated();
 
   const newBlog = await prisma.blog.create({
     data: {
@@ -52,7 +52,7 @@ export async function updateBlog(
   title: string,
   content: string
 ): Promise<Blog> {
-  const user = await authenticated();
+  const user = await Auth.authenticated();
 
   const oldPost = await getBlogById(id);
 
@@ -72,7 +72,7 @@ export async function updateBlog(
 
 // Delete a blog by ID
 export async function deleteBlog(id: number): Promise<void> {
-  const user = await authenticated();
+  const user = await Auth.authenticated();
 
   const post = await getBlogById(id);
 

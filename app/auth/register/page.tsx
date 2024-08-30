@@ -1,6 +1,6 @@
 import { registerUser } from "@/actions/auth";
 import ErrorMessage from "@/components/ui/error-message";
-import { unAuthenticated } from "@/lib/auth";
+import { Auth } from "@/lib/auth";
 import { Errors } from "@/lib/errors";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +8,7 @@ import React from "react";
 
 export default async function RegisterPage() {
   // if user is already authenticated, redirect to home page
-  await unAuthenticated();
+  await Auth.guest();
   return (
     <main className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
