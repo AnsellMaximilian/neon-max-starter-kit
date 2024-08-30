@@ -6,6 +6,7 @@ import { PrismaClient } from "@prisma/client";
 import { signInSchema } from "./lib/zod";
 import { ZodError } from "zod";
 import { cookies } from "next/headers";
+import { Errors } from "./lib/errors";
 
 const prisma = new PrismaClient();
 
@@ -31,10 +32,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const errArray: string[] = [];
 
         try {
-          const { email, password } = await signInSchema.parseAsync(
-            credentials
-          );
-
           const user = await prisma.user.findUnique({
             where: { email: credentials.email as string },
           });
@@ -56,15 +53,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           // return usr object with their profile data
           return user;
         } catch (error) {
-          if (error instanceof ZodError) {
-            error.errors.forEach((err) => errArray.push(err.message));
-          } else if (error instanceof Error) {
-            errArray.push(error.message);
+          if (error instanceof Error) {
+            Errors.set("auth", error.message);
           }
 
           return null;
         } finally {
-          cookieStore.set("errors", JSON.stringify(errArray));
+          Errors.flash();
         }
       },
     }),

@@ -1,33 +1,19 @@
 import { loginUser } from "@/actions/auth";
+import ErrorMessage from "@/components/ui/error-message";
 import { unAuthenticated } from "@/lib/auth";
+import { Errors } from "@/lib/errors";
 import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
 export default async function LoginPage() {
-  const errCookie = cookies().get("errors");
-  let errMessages: string[] = [];
-
-  try {
-    errMessages = errCookie?.value ? JSON.parse(errCookie.value) : [];
-  } catch (error) {}
-
   // if user is already authenticated, redirect to home page
   await unAuthenticated();
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <ul className="flex flex-col gap-2 mb-4">
-        {errMessages.map((msg, index) => (
-          <li
-            key={index}
-            className="bg-red-100 border border-red-600 p-2 rounded-md"
-          >
-            {msg}
-          </li>
-        ))}
-      </ul>
       <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
+        <ErrorMessage message={Errors.get("auth")} className="mb-4" />
         <div className="flex justify-center mb-8">
           <Link href="/">
             <Image
@@ -53,6 +39,8 @@ export default async function LoginPage() {
               required
             />
           </div>
+          <ErrorMessage message={Errors.get("email")} className="mt-2" />
+
           <div>
             <label className="block mb-1 font-medium text-gray-600">
               Password
@@ -63,6 +51,7 @@ export default async function LoginPage() {
               className="w-full px-4 py-2 border rounded-md"
               required
             />
+            <ErrorMessage message={Errors.get("password")} className="mt-2" />
           </div>
           <button
             type="submit"

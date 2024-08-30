@@ -1,5 +1,7 @@
 import { registerUser } from "@/actions/auth";
+import ErrorMessage from "@/components/ui/error-message";
 import { unAuthenticated } from "@/lib/auth";
+import { Errors } from "@/lib/errors";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -34,6 +36,7 @@ export default async function RegisterPage() {
               className="w-full px-4 py-2 border rounded-md"
               required
             />
+            <ErrorMessage message={Errors.get("username")} className="mt-2" />
           </div>
           <div>
             <label className="block mb-1 font-medium text-gray-600">Name</label>
@@ -44,6 +47,8 @@ export default async function RegisterPage() {
               required
             />
           </div>
+          <ErrorMessage message={Errors.get("name")} className="mt-2" />
+
           <div>
             <label className="block mb-1 font-medium text-gray-600">
               Email
@@ -54,6 +59,7 @@ export default async function RegisterPage() {
               className="w-full px-4 py-2 border rounded-md"
               required
             />
+            <ErrorMessage message={Errors.get("email")} className="mt-2" />
           </div>
           <div>
             <label className="block mb-1 font-medium text-gray-600">
@@ -65,6 +71,7 @@ export default async function RegisterPage() {
               className="w-full px-4 py-2 border rounded-md"
               required
             />
+            <ErrorMessage message={Errors.get("password")} className="mt-2" />
           </div>
           <button
             type="submit"
