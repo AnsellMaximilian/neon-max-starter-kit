@@ -1,6 +1,5 @@
 import { auth, signOut } from "@/auth";
 import { Button } from "@/components/ui/button";
-import { authenticated } from "@/lib/auth";
 import Image from "next/image";
 import Link from "next/link";
 

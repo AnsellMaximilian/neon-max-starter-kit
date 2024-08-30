@@ -1,10 +1,8 @@
 "use server";
 
 import { authenticated } from "@/lib/auth";
-import { neon } from "@neondatabase/serverless";
 import { Blog, PrismaClient } from "@prisma/client";
 
-const sql = neon(process.env.DATABASE_URL!);
 const prisma = new PrismaClient();
 
 // Create a new blog
