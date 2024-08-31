@@ -5,6 +5,7 @@ import { Pencil } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Comments from "../Comments";
+import { Authorization } from "@/lib/authorization";
 
 type BlogPageProps = {
   params: {
@@ -24,18 +25,14 @@ export default async function BlogPage({ params }: BlogPageProps) {
       <header className="justify-between flex">
         <h1 className="text-2xl font-bold text-gray-900 mb-4">{blog.title}</h1>
         <div className="flex space-x-4">
-          <Link
-            href={`/examples/blog/${blog.id}/edit`}
-            className={cn(buttonVariants({ variant: "outline", size: "icon" }))}
-          >
-            <Pencil className="w-4 h-4" />
-          </Link>
-          <Link
-            href="/examples/blog"
-            className={cn(buttonVariants({ variant: "outline" }))}
-          >
-            Back to Blog List
-          </Link>
+          {(await Authorization.allows("can-edit-blog")) && (
+            <Link
+              href="/examples/blog"
+              className={cn(buttonVariants({ variant: "outline" }))}
+            >
+              Back to Blog List
+            </Link>
+          )}
         </div>
       </header>
       <p className="text-gray-700 mb-6 whitespace-pre-wrap">{blog.content}</p>

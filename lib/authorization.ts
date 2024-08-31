@@ -1,39 +1,49 @@
 import { User } from "next-auth";
 import { auth } from "@/auth";
+import { getBlogById } from "@/actions/blog";
 
 export class Authorization {
   private static authorizations: Record<
     string,
     (user: User, ...args: any[]) => Promise<boolean>
-  > = {};
+  > = {
+    "can-edit-blog": async (user, blogId: number) => {
+      const blog = await getBlogById(blogId);
 
-  static async define(
-    policyName: string,
-    authorizationCallback: (user: User, ...args: any[]) => Promise<boolean>
+      if (blog && blog.authorId === user.id) return true;
+
+      return false;
+    },
+  };
+
+  static async allows(
+    policyName: keyof typeof Authorization.authorizations,
+    ...args: any[]
   ) {
-    "use server";
-
-    this.authorizations[policyName] = authorizationCallback;
-  }
-
-  static async allows(policyName: string, ...args: any[]) {
     "use server";
 
     const session = await auth();
 
     if (session?.user) {
-      return await this.authorizations[policyName](session.user, args);
+      return (
+        this.authorizations[policyName] &&
+        (await this.authorizations[policyName](session.user, args))
+      );
     }
 
     return false;
   }
 
-  static async allowsFor(policyName: string, user: User, ...args: any[]) {
+  static async allowsFor(
+    policyName: keyof typeof Authorization.authorizations,
+    user: User,
+    ...args: any[]
+  ) {
     "use server";
 
     return (
       this.authorizations[policyName] &&
-      this.authorizations[policyName](user, args)
+      (await this.authorizations[policyName](user, args))
     );
   }
 }

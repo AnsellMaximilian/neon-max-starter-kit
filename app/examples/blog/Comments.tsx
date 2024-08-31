@@ -1,17 +1,13 @@
 "use client";
 
-import {
-  createComment,
-  CreateCommentState,
-  getAllComments,
-} from "@/actions/comment";
+import { createComment, getAllComments } from "@/actions/comment";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { Comment, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import React, { useActionState, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 
 export default function Comments({ blogId }: { blogId: number }) {
@@ -44,7 +40,7 @@ export default function Comments({ blogId }: { blogId: number }) {
       const comments = await getAllComments(blogId);
       setComments(comments);
     })();
-  }, [createCommentState.createdCommentId]);
+  }, [createCommentState.createdCommentId, blogId]);
 
   useEffect(() => {
     if (createCommentState.error) {
@@ -54,7 +50,7 @@ export default function Comments({ blogId }: { blogId: number }) {
         description: createCommentState.message,
       });
     }
-  }, [createCommentState.error]);
+  }, [createCommentState, toast]);
 
   return (
     <div className="mt-4">

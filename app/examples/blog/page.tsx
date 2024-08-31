@@ -1,5 +1,6 @@
 import { deleteBlog, getBlogs } from "@/actions/blog";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { Authorization } from "@/lib/authorization";
 import { cn } from "@/lib/utils";
 import { Eye, Pen, Pencil, Trash } from "lucide-react";
 import { revalidatePath } from "next/cache";
@@ -17,6 +18,7 @@ export default async function Blog() {
 
     redirect("/examples/blog");
   }
+  const isAuthor = await Authorization.allows("can-edit-blog");
 
   return (
     <main className="max-w-4xl mx-auto p-6">
@@ -57,20 +59,29 @@ export default async function Blog() {
                     >
                       <Eye className="h-4 w-4" />
                     </Link>
-                    <Link
-                      href={`/examples/blog/${blog.id}/edit`}
-                      className={cn(
-                        buttonVariants({ variant: "outline", size: "icon" })
-                      )}
-                    >
-                      <Pencil className="h-4 w-4" />
-                    </Link>
-                    <form action={handleDelete} className="inline-block">
-                      <input type="hidden" name="id" value={blog.id} />
-                      <Button type="submit" variant="destructive" size="icon">
-                        <Trash className="h-4 w-4" />
-                      </Button>
-                    </form>
+
+                    {isAuthor && (
+                      <>
+                        <Link
+                          href={`/examples/blog/${blog.id}/edit`}
+                          className={cn(
+                            buttonVariants({ variant: "outline", size: "icon" })
+                          )}
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </Link>
+                        <form action={handleDelete} className="inline-block">
+                          <input type="hidden" name="id" value={blog.id} />
+                          <Button
+                            type="submit"
+                            variant="destructive"
+                            size="icon"
+                          >
+                            <Trash className="h-4 w-4" />
+                          </Button>
+                        </form>
+                      </>
+                    )}
                   </div>
                 </div>
               </li>
