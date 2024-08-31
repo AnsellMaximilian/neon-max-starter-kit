@@ -79,6 +79,5 @@ export async function getAllComments(blogId: number) {
       },
     },
   });
-  console.log(comments);
   return comments;
 }

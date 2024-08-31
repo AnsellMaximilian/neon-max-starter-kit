@@ -21,20 +21,25 @@ export default async function BlogPage({ params }: BlogPageProps) {
 
   return (
     <main className="max-w-3xl mx-auto p-6 bg-white shadow-sm rounded-lg">
-      <h1 className="text-2xl font-bold text-gray-900 mb-4">{blog.title}</h1>
+      <header className="justify-between flex">
+        <h1 className="text-2xl font-bold text-gray-900 mb-4">{blog.title}</h1>
+        <div className="flex space-x-4">
+          <Link
+            href={`/examples/blog/${blog.id}/edit`}
+            className={cn(buttonVariants({ variant: "outline", size: "icon" }))}
+          >
+            <Pencil className="w-4 h-4" />
+          </Link>
+          <Link
+            href="/examples/blog"
+            className={cn(buttonVariants({ variant: "outline" }))}
+          >
+            Back to Blog List
+          </Link>
+        </div>
+      </header>
       <p className="text-gray-700 mb-6 whitespace-pre-wrap">{blog.content}</p>
 
-      <div className="flex space-x-4">
-        <Link
-          href={`/examples/blog/${blog.id}/edit`}
-          className={cn(buttonVariants({ variant: "outline", size: "icon" }))}
-        >
-          <Pencil className="w-4 h-4" />
-        </Link>
-        <Link href="/examples/blog" className={cn(buttonVariants({}))}>
-          Back to Blog List
-        </Link>
-      </div>
       <Comments blogId={blog.id} />
     </main>
   );
