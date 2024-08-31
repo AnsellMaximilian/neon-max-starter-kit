@@ -25,7 +25,8 @@ model User {
   image         String?
   posts         Blog[]
   comments      Comment[]
-  createdAt   DateTime @default(now()) @map("created_at")
+  createdAt     DateTime @default(now())  @map("created_at")
+  updatedAt     DateTime @updatedAt       @map("updated_at")
 }
 
 model Blog {
@@ -34,11 +35,13 @@ model Blog {
   id          Int      @id @default(autoincrement())
   title       String
   content     String
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt
+  
   authorId    String   @map("author_id")
   author      User     @relation(fields: [authorId], references: [id])
   comments    Comment[]
+
+  createdAt   DateTime @default(now())  @map("created_at")
+  updatedAt   DateTime @updatedAt       @map("updated_at")
 }
 
 model Comment {
