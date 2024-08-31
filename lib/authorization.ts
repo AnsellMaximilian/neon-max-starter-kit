@@ -1,6 +1,6 @@
-import { User } from "next-auth";
 import { auth } from "@/auth";
 import { getBlogById } from "@/actions/blog";
+import { User } from "next-auth";
 
 export class Authorization {
   private static authorizations: Record<
@@ -27,7 +27,7 @@ export class Authorization {
     if (session?.user) {
       return (
         this.authorizations[policyName] &&
-        (await this.authorizations[policyName](session.user, args))
+        (await this.authorizations[policyName](session.user, ...args))
       );
     }
 
@@ -43,7 +43,7 @@ export class Authorization {
 
     return (
       this.authorizations[policyName] &&
-      (await this.authorizations[policyName](user, args))
+      (await this.authorizations[policyName](user, ...args))
     );
   }
 }

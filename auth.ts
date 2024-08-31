@@ -1,10 +1,9 @@
-import NextAuth, { User } from "next-auth";
+import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
 import bcrypt from "bcryptjs";
 import { PrismaClient } from "@prisma/client";
-import { signInSchema } from "./lib/zod";
-import { ZodError } from "zod";
+
 import { cookies } from "next/headers";
 import { Errors } from "./lib/errors";
 
@@ -28,9 +27,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: {},
       },
       authorize: async (credentials) => {
-        const cookieStore = cookies();
-        const errArray: string[] = [];
-
         try {
           const user = await prisma.user.findUnique({
             where: { email: credentials.email as string },

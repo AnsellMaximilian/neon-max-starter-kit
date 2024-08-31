@@ -18,7 +18,6 @@ export default async function Blog() {
 
     redirect("/examples/blog");
   }
-  const isAuthor = await Authorization.allows("can-edit-blog");
 
   return (
     <main className="max-w-4xl mx-auto p-6">
@@ -36,7 +35,7 @@ export default async function Blog() {
           </p>
         ) : (
           <ul className="flex flex-col gap-2 ">
-            {blogs.map((blog) => (
+            {blogs.map(async (blog) => (
               <li
                 key={blog.id}
                 className="p-4 border border-gray-200 rounded-md "
@@ -60,7 +59,7 @@ export default async function Blog() {
                       <Eye className="h-4 w-4" />
                     </Link>
 
-                    {isAuthor && (
+                    {(await Authorization.allows("can-edit-blog", blog.id)) && (
                       <>
                         <Link
                           href={`/examples/blog/${blog.id}/edit`}

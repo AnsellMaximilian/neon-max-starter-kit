@@ -25,7 +25,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
       <header className="justify-between flex">
         <h1 className="text-2xl font-bold text-gray-900 mb-4">{blog.title}</h1>
         <div className="flex space-x-4">
-          {(await Authorization.allows("can-edit-blog")) && (
+          {(await Authorization.allows("can-edit-blog", blog.id)) && (
             <Link
               href="/examples/blog"
               className={cn(buttonVariants({ variant: "outline" }))}
