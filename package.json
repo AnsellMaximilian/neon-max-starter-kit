@@ -33,7 +33,7 @@
     "autoprefixer": "^10.4.20",
     "eslint": "^8",
     "eslint-config-next": "14.2.6",
-    "neon-max-cli": "^1.2.3",
+    "neon-max-cli": "^1.2.4",
     "postcss": "^8.4.41",
     "prisma": "^5.19.0",
     "tailwindcss": "^3.4.10",
