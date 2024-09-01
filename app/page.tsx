@@ -1,5 +1,7 @@
 import { auth, signOut } from "@/auth";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { AUTH_URLS } from "@/config/auth";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -43,12 +45,15 @@ export default async function Home() {
           </div>
         ) : (
           <div className="flex space-x-4 justify-center">
-            <Button asChild variant="outline">
-              <a href="/auth/register">Register</a>
-            </Button>
-            <Button asChild>
-              <a href="/auth/login">Login</a>
-            </Button>
+            <Link
+              href={AUTH_URLS.REGISTER}
+              className={cn(buttonVariants({ variant: "outline" }))}
+            >
+              Register
+            </Link>
+            <Link href={AUTH_URLS.LOGIN} className={cn(buttonVariants({}))}>
+              Login
+            </Link>
           </div>
         )}
       </div>

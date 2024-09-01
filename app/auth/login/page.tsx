@@ -1,5 +1,6 @@
 import { loginUser } from "@/actions/auth";
 import ErrorMessage from "@/components/ui/error-message";
+import { AUTH_URLS } from "@/config/auth";
 import { Auth } from "@/lib/auth";
 import { Errors } from "@/lib/errors";
 import Image from "next/image";
@@ -61,7 +62,7 @@ export default async function LoginPage() {
         </form>
         <div className="text-center mt-4 text-sm">
           Don&apos;t have an account? Register{" "}
-          <Link className="text-green-400" href="/auth/register">
+          <Link className="text-green-400" href={AUTH_URLS.REGISTER}>
             here
           </Link>
           .

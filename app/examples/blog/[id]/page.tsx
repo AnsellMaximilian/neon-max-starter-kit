@@ -1,11 +1,11 @@
 import { getBlogById } from "@/actions/blog";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Pencil } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Comments from "../Comments";
 import { Authorization } from "@/lib/authorization";
+import { Pencil } from "lucide-react";
 
 type BlogPageProps = {
   params: {
@@ -27,12 +27,20 @@ export default async function BlogPage({ params }: BlogPageProps) {
         <div className="flex space-x-4">
           {(await Authorization.allows("can-edit-blog", blog.id)) && (
             <Link
-              href="/examples/blog"
-              className={cn(buttonVariants({ variant: "outline" }))}
+              href={`/examples/blog/${blog.id}/edit`}
+              className={cn(
+                buttonVariants({ variant: "outline", size: "icon" })
+              )}
             >
-              Back to Blog List
+              <Pencil className="h-4 w-4" />
             </Link>
           )}
+          <Link
+            href="/examples/blog"
+            className={cn(buttonVariants({ variant: "outline" }))}
+          >
+            Back to Blog List
+          </Link>
         </div>
       </header>
       <p className="text-gray-700 mb-6 whitespace-pre-wrap">{blog.content}</p>

@@ -4,6 +4,7 @@ import { createComment, getAllComments } from "@/actions/comment";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
+import { AUTH_URLS } from "@/config/auth";
 import { Prisma } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
@@ -71,7 +72,7 @@ export default function Comments({ blogId }: { blogId: number }) {
         <div>
           <p>You need to log in to comment</p>{" "}
           <Link
-            href="auth/login"
+            href={AUTH_URLS.LOGIN}
             className={buttonVariants({ variant: "outline" })}
           >
             Login

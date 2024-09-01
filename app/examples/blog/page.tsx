@@ -2,7 +2,7 @@ import { deleteBlog, getBlogs } from "@/actions/blog";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Authorization } from "@/lib/authorization";
 import { cn } from "@/lib/utils";
-import { Eye, Pen, Pencil, Trash } from "lucide-react";
+import { Eye, Pencil, Trash } from "lucide-react";
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import { redirect } from "next/navigation";

@@ -1,20 +1,9 @@
 import { auth } from "@/auth";
-import { getBlogById } from "@/actions/blog";
 import { User } from "next-auth";
+import { AUTHORIZATIONS } from "@/config/authorization";
 
 export class Authorization {
-  private static authorizations: Record<
-    string,
-    (user: User, ...args: any[]) => Promise<boolean>
-  > = {
-    "can-edit-blog": async (user, blogId: number) => {
-      const blog = await getBlogById(blogId);
-
-      if (blog && blog.authorId === user.id) return true;
-
-      return false;
-    },
-  };
+  private static authorizations = AUTHORIZATIONS;
 
   static async allows(
     policyName: keyof typeof Authorization.authorizations,

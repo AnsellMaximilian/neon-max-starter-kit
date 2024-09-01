@@ -1,5 +1,6 @@
 "use server";
 import { signIn } from "@/auth";
+import { AUTH_URLS } from "@/config/auth";
 import { Errors } from "@/lib/errors";
 import { registerSchema, signInSchema } from "@/lib/zod";
 import { neon } from "@neondatabase/serverless";
@@ -24,7 +25,7 @@ export async function registerUser(formData: FormData) {
   });
 
   if (error) {
-    return redirect("/auth/register");
+    return redirect(AUTH_URLS.REGISTER);
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -38,7 +39,7 @@ export async function registerUser(formData: FormData) {
     },
   });
 
-  redirect("/auth/login");
+  redirect(AUTH_URLS.LOGIN);
 }
 
 // Server action to handle login
@@ -51,7 +52,7 @@ export async function loginUser(formData: FormData) {
     const { error } = Errors.validateZod(signInSchema, { email, password });
 
     if (error) {
-      redirect("/auth/login");
+      redirect(AUTH_URLS.LOGIN);
     }
 
     await signIn("credentials", {
@@ -63,7 +64,7 @@ export async function loginUser(formData: FormData) {
     hasError = true;
   } finally {
     // redirects need to be called inside a finally block; otherwise it will throw a NEXT_REDIRECT error
-    if (hasError) redirect("/auth/login");
+    if (hasError) redirect(AUTH_URLS.LOGIN);
     else redirect("/");
   }
 }

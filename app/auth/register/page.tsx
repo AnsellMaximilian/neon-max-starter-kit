@@ -1,5 +1,6 @@
 import { registerUser } from "@/actions/auth";
 import ErrorMessage from "@/components/ui/error-message";
+import { AUTH_URLS } from "@/config/auth";
 import { Auth } from "@/lib/auth";
 import { Errors } from "@/lib/errors";
 import Image from "next/image";
@@ -82,7 +83,7 @@ export default async function RegisterPage() {
         </form>
         <div className="text-center mt-4 text-sm">
           Already have an account? Login{" "}
-          <Link className="text-green-400" href="/auth/login">
+          <Link className="text-green-400" href={AUTH_URLS.LOGIN}>
             here
           </Link>
           .
