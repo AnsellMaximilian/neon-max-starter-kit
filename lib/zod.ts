@@ -29,6 +29,11 @@ export const registerSchema = object({
     .max(32, "Password must be 32 characters or less"),
 });
 
+export const blogSchema = object({
+  title: string().min(5, "Title can't be too short. Minimum 5 characters."),
+  content: string().min(10),
+});
+
 export const commentSchema = string({
   required_error: "Make sure your comment isn't empty",
 }).min(5, "Comments must be at least 5 characters long");

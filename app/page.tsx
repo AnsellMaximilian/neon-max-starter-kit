@@ -22,7 +22,7 @@ export default async function Home() {
       </div>
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">
-          Neon Max Next.js OSS Starter Kit
+          Neon Max Next.js Starter Kit
         </h1>
         <p className="text-lg text-gray-600 mb-6">
           A robust, open-source starter kit built with Next.js, powered by Neon,
@@ -99,11 +99,24 @@ export default async function Home() {
           </h2>
           <p className="text-gray-600">
             Completely open-source and community-driven, the Neon Max Next.js
-            OSS Starter Kit is perfect for both personal and commercial
-            projects.
+            Starter Kit is perfect for both personal and commercial projects.
           </p>
         </div>
       </div>
+
+      <section className="mt-16 text-center max-w-4xl w-full">
+        <h2 className="text-3xl font-bold mb-4">Working Blog Example</h2>
+        <p className="text-lg tracking-wide">
+          Neon Max comes equipped with a working blog example complete with CRUD
+          actions, authorization, etc. Check out the code under{" "}
+          <code>app/examples/blog</code> to learn how the included libraries and
+          tools are used as well as Neon Max&apos;s own functionalities like{" "}
+          <strong>Auth</strong> and <strong>Authorization</strong> helpers..
+        </p>
+        <Link href="/examples/blog" className={cn(buttonVariants(), "mt-6")}>
+          Go to Blogs
+        </Link>
+      </section>
     </main>
   );
 }

@@ -1,12 +1,17 @@
+import { auth, signOut } from "@/auth";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { AUTH_URLS } from "@/config/auth";
+import { cn } from "@/lib/utils";
 import { SessionProvider } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function BlogLayout({
+export default async function BlogLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const user = (await auth())?.user;
   return (
     <SessionProvider>
       <>
@@ -32,6 +37,35 @@ export default function BlogLayout({
               </Link>
             </li>
           </ul>
+          <div className="ml-auto flex gap-2">
+            {user ? (
+              <form
+                action={async () => {
+                  "use server";
+                  await signOut();
+                }}
+              >
+                <Button type="submit" variant="outline">
+                  Sign Out
+                </Button>
+              </form>
+            ) : (
+              <>
+                <Link
+                  href={AUTH_URLS.REGISTER}
+                  className={cn(buttonVariants({ variant: "outline" }))}
+                >
+                  Register
+                </Link>
+                <Link
+                  href={AUTH_URLS.LOGIN}
+                  className={cn(buttonVariants({ variant: "outline" }))}
+                >
+                  Login
+                </Link>
+              </>
+            )}
+          </div>
         </header>
         {children}
       </>

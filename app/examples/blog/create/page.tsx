@@ -1,18 +1,30 @@
 import { createBlog } from "@/actions/blog";
 import { Button } from "@/components/ui/button";
+import ErrorMessage from "@/components/ui/error-message";
+import { Auth } from "@/lib/auth";
+import { Errors } from "@/lib/errors";
+import { blogSchema } from "@/lib/zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export default async function CreateBlogPage() {
+  await Auth.authenticated();
+
   async function handleCreate(formData: FormData) {
     "use server";
     const title = formData.get("title") as string;
     const content = formData.get("content") as string;
 
-    await createBlog(title, content);
-    revalidatePath("/examples/blog");
+    const validationResult = Errors.validateZod(blogSchema, { title, content });
 
-    redirect("/examples/blog");
+    if (!validationResult.error) {
+      await createBlog(title, content);
+      revalidatePath("/examples/blog");
+
+      redirect("/examples/blog");
+    } else {
+      redirect("/examples/blog/create");
+    }
   }
 
   return (
@@ -37,6 +49,7 @@ export default async function CreateBlogPage() {
             required
             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+          <ErrorMessage message={Errors.get("title")} className="mt-4" />
         </div>
         <div className="form-group">
           <label
@@ -52,6 +65,7 @@ export default async function CreateBlogPage() {
             required
             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+          <ErrorMessage message={Errors.get("content")} className="mt-4" />
         </div>
         <Button type="submit" className="w-full">
           Create
