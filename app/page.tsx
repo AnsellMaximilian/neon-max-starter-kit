@@ -5,6 +5,8 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
+import styles from "./page.module.css";
+
 export default async function Home() {
   const session = await auth();
   const user = session?.user;
@@ -24,7 +26,7 @@ export default async function Home() {
         <h1 className="text-4xl font-bold text-gray-900 mb-4">
           Neon Max Next.js Starter Kit
         </h1>
-        <p className="text-lg text-gray-600 mb-6">
+        <p className="text-lg  mb-6">
           A robust, open-source starter kit built with Next.js, powered by Neon,
           and designed for modern web applications.
         </p>
@@ -59,20 +61,20 @@ export default async function Home() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full text-center">
-        <div className="bg-white shadow-md rounded-lg p-6">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+        <div className="bg-black text-white shadow-xl shadow-[#20FFE7]/50 rounded-lg p-6">
+          <h2 className={cn(" text-2xl font-semibold mb-2", styles.neonGlow)}>
             Feature-Rich
           </h2>
-          <p className="text-gray-600">
+          <p className="">
             Packed with essential features and integrations, this starter kit
             provides a comprehensive foundation for your next project.
           </p>
         </div>
-        <div className="bg-white shadow-md rounded-lg p-6">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+        <div className="bg-black text-white shadow-xl shadow-[#20FFE7]/50 rounded-lg p-6">
+          <h2 className={cn(" text-2xl font-semibold mb-2", styles.neonGlow)}>
             Powered by Neon
           </h2>
-          <p className="text-gray-600">
+          <p className="">
             Leverage the power of{" "}
             <Link
               href="https://neon.tech/"
@@ -84,20 +86,20 @@ export default async function Home() {
             capabilities to build fast, scalable, and secure applications.
           </p>
         </div>
-        <div className="bg-white shadow-md rounded-lg p-6">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+        <div className="bg-black text-white shadow-xl shadow-[#20FFE7]/50 rounded-lg p-6">
+          <h2 className={cn(" text-2xl font-semibold mb-2", styles.neonGlow)}>
             Modern Technologies
           </h2>
-          <p className="text-gray-600">
+          <p className="">
             Built with Next.js, Tailwind CSS, and other modern technologies,
             this starter kit ensures a smooth development experience.
           </p>
         </div>
-        <div className="bg-white shadow-md rounded-lg p-6">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+        <div className="bg-black text-white shadow-xl shadow-[#20FFE7]/50 rounded-lg p-6">
+          <h2 className={cn(" text-2xl font-semibold mb-2", styles.neonGlow)}>
             Open Source
           </h2>
-          <p className="text-gray-600">
+          <p className="">
             Completely open-source and community-driven, the Neon Max Next.js
             Starter Kit is perfect for both personal and commercial projects.
           </p>
@@ -105,7 +107,7 @@ export default async function Home() {
       </div>
 
       <section className="mt-16 text-center max-w-4xl w-full">
-        <h2 className="text-3xl font-bold mb-4">Working Blog Example</h2>
+        <h2 className=" text-3xl font-bold mb-4">Working Blog Example</h2>
         <p className="text-lg tracking-wide">
           Neon Max comes equipped with a working blog example complete with CRUD
           actions, authorization, etc. Check out the code under{" "}
