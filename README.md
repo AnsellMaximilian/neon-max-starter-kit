@@ -4,7 +4,7 @@
 
 ## Documentation Website
 
-This README file provides enough information to get started. For an even more detailed setup guide along with documentation on Neon Max's special helper classes, head over to the [documentation website](https://ansellmaximilian.github.io/neon-max-docs/docs/setting-up-neon)
+This README file provides enough information to get started. For an even more detailed setup guide along with documentation on Neon Max's special helper classes, head over to the [documentation website](https://ansellmaximilian.github.io/neon-max-docs/docs/intro)
 
 ## Getting Started
 
